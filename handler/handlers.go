@@ -2,11 +2,12 @@ package handler
 
 import (
 	"encoding/json"
+	"io/ioutil"
+	"net/http"
+
 	"github.com/gorilla/mux"
 	"github.com/kkamdooong/go-restful-api-example/db"
 	"github.com/kkamdooong/go-restful-api-example/model"
-	"io/ioutil"
-	"net/http"
 )
 
 func GetCompanies(w http.ResponseWriter, _ *http.Request) {
@@ -20,6 +21,28 @@ func GetCompanies(w http.ResponseWriter, _ *http.Request) {
 	writeJsonResponse(w, bytes)
 }
 
+// swagger:operation GET /companies/{name} companies getCompany
+//
+// Get a company by name.
+//
+// ---
+// produces:
+// - application/json
+//
+// schemes:
+// - http
+//
+// parameters:
+// - name: name
+//   in: path
+//   required: true
+//   type: string
+//
+// responses:
+//   '200':
+//     description: A Company
+//     schema:
+//       "$ref": "#/responses/Company"
 func GetCompany(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
@@ -38,6 +61,25 @@ func GetCompany(w http.ResponseWriter, r *http.Request) {
 	writeJsonResponse(w, bytes)
 }
 
+// swagger:operation GET /companies companies getCompanies
+//
+// Lists companies.
+//
+// This will show all companies.
+// ---
+// produces:
+// - application/json
+//
+// schemes:
+// - http
+//
+// responses:
+//   '200':
+//     description: An array of Companies
+//     schema:
+//       type: array
+//       items:
+//         "$ref": "#/responses/Company"
 func SaveCompany(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {

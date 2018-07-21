@@ -1,7 +1,18 @@
 package model
 
+// Company model
+//
+// swagger:response Company
 type Company struct {
-	Name  string `json:"name"`
-	Tel   string `json:"tel"`
+	// The name for this company
+	// required: true
+	Name string `json:"name"`
+
+	// The telephone number of the company
+	// required: true
+	Tel string `json:"tel"`
+
+	// The email of the company
+	// required: true
 	Email string `json:"email"`
 }
