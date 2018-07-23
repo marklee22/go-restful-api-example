@@ -19,16 +19,13 @@ import (
 // produces:
 // - application/json
 //
-// schemes:
-// - http
-//
 // responses:
 //   200:
 //     description: An array of Companies
 //     schema:
 //       type: array
 //       items:
-//         "$ref": "#/responses/Company"
+//         "$ref": "#/definitions/Company"
 func GetCompanies(w http.ResponseWriter, _ *http.Request) {
 	companies := db.FindAll()
 
@@ -48,9 +45,6 @@ func GetCompanies(w http.ResponseWriter, _ *http.Request) {
 // produces:
 // - application/json
 //
-// schemes:
-// - http
-//
 // parameters:
 // - name: name
 //   in: path
@@ -61,7 +55,7 @@ func GetCompanies(w http.ResponseWriter, _ *http.Request) {
 //   200:
 //     description: A Company
 //     schema:
-//       "$ref": "#/responses/Company"
+//       "$ref": "#/definitions/Company"
 func GetCompany(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
@@ -91,23 +85,20 @@ func GetCompany(w http.ResponseWriter, r *http.Request) {
 // produces:
 // - application/json
 //
-// schemes:
-// - http
-//
 // parameters:
 // - name: name
 //   description: Name of the company
-//   in: body
+//   in: formData
 //   required: true
 //   type: string
 // - name: tel
 //   description: Telephone of the company
-//   in: body
+//   in: formData
 //   required: true
 //   type: string
 // - name: email
 //   description: Email of the company
-//   in: body
+//   in: formData
 //   required: true
 //   type: string
 //
@@ -132,6 +123,37 @@ func SaveCompany(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+// swagger:operation PUT /companies/{name} companies updateCompany
+//
+// Updates a company.
+//
+// ---
+// consumes:
+// - application/x-www-form-urlencoded
+//
+// produces:
+// - application/json
+//
+// parameters:
+// - name: name
+//   description: Name of the company
+//   in: path
+//   required: true
+//   type: string
+// - name: tel
+//   description: Telephone of the company
+//   in: formData
+//   required: false
+//   type: string
+// - name: email
+//   description: Email of the company
+//   in: formData
+//   required: false
+//   type: string
+//
+// responses:
+//   200:
+//     description: Company updated
 func UpdateCompany(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
@@ -157,9 +179,6 @@ func UpdateCompany(w http.ResponseWriter, r *http.Request) {
 // ---
 // produces:
 // - application/json
-//
-// schemes:
-// - http
 //
 // parameters:
 // - name: name

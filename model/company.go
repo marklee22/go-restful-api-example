@@ -1,8 +1,6 @@
 package model
 
-// Company model
-//
-// swagger:response Company
+// swagger:model Company
 type Company struct {
 	// The name for this company
 	// required: true
