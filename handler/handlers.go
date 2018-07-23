@@ -10,6 +10,25 @@ import (
 	"github.com/kkamdooong/go-restful-api-example/model"
 )
 
+// swagger:operation GET /companies companies getCompanies
+//
+// Lists companies.
+//
+// This will show all companies.
+// ---
+// produces:
+// - application/json
+//
+// schemes:
+// - http
+//
+// responses:
+//   200:
+//     description: An array of Companies
+//     schema:
+//       type: array
+//       items:
+//         "$ref": "#/responses/Company"
 func GetCompanies(w http.ResponseWriter, _ *http.Request) {
 	companies := db.FindAll()
 
@@ -39,7 +58,7 @@ func GetCompanies(w http.ResponseWriter, _ *http.Request) {
 //   type: string
 //
 // responses:
-//   '200':
+//   200:
 //     description: A Company
 //     schema:
 //       "$ref": "#/responses/Company"
@@ -61,25 +80,40 @@ func GetCompany(w http.ResponseWriter, r *http.Request) {
 	writeJsonResponse(w, bytes)
 }
 
-// swagger:operation GET /companies companies getCompanies
+// swagger:operation POST /companies companies createCompany
 //
-// Lists companies.
+// Creates a company.
 //
-// This will show all companies.
 // ---
+// consumes:
+// - application/x-www-form-urlencoded
+//
 // produces:
 // - application/json
 //
 // schemes:
 // - http
 //
+// parameters:
+// - name: name
+//   description: Name of the company
+//   in: body
+//   required: true
+//   type: string
+// - name: tel
+//   description: Telephone of the company
+//   in: body
+//   required: true
+//   type: string
+// - name: email
+//   description: Email of the company
+//   in: body
+//   required: true
+//   type: string
+//
 // responses:
-//   '200':
-//     description: An array of Companies
-//     schema:
-//       type: array
-//       items:
-//         "$ref": "#/responses/Company"
+//   200:
+//     description: Company created
 func SaveCompany(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
