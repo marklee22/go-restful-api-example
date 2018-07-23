@@ -112,7 +112,7 @@ func GetCompany(w http.ResponseWriter, r *http.Request) {
 //   type: string
 //
 // responses:
-//   200:
+//   201:
 //     description: Company created
 func SaveCompany(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
@@ -150,6 +150,27 @@ func UpdateCompany(w http.ResponseWriter, r *http.Request) {
 	db.Save(name, com)
 }
 
+// swagger:operation DELETE /companies/{name} companies deleteCompany
+//
+// Deletes a company.
+//
+// ---
+// produces:
+// - application/json
+//
+// schemes:
+// - http
+//
+// parameters:
+// - name: name
+//   description: Name of the company
+//   in: path
+//   required: true
+//   type: string
+//
+// responses:
+//   202:
+//     description: Company deleted
 func DeleteCompany(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
