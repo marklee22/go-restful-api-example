@@ -37,9 +37,10 @@ func GetCompanies(w http.ResponseWriter, _ *http.Request) {
 	writeJsonResponse(w, bytes)
 }
 
-// swagger:operation GET /companies/{name} companies getCompany
+// swagger:operation GET /companies/{name} companies getCompanyByName
 //
 // Get a company by name.
+// Gets the details for a company.
 //
 // ---
 // produces:
@@ -88,17 +89,17 @@ func GetCompany(w http.ResponseWriter, r *http.Request) {
 // parameters:
 // - name: name
 //   description: Name of the company
-//   in: formData
+//   in: body
 //   required: true
 //   type: string
 // - name: tel
 //   description: Telephone of the company
-//   in: formData
+//   in: body
 //   required: true
 //   type: string
 // - name: email
 //   description: Email of the company
-//   in: formData
+//   in: body
 //   required: true
 //   type: string
 //
@@ -120,6 +121,7 @@ func SaveCompany(w http.ResponseWriter, r *http.Request) {
 	db.Save(com.Name, com)
 
 	w.Header().Set("Location", r.URL.Path+"/"+com.Name)
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(http.StatusCreated)
 }
 
@@ -142,12 +144,12 @@ func SaveCompany(w http.ResponseWriter, r *http.Request) {
 //   type: string
 // - name: tel
 //   description: Telephone of the company
-//   in: formData
+//   in: body
 //   required: false
 //   type: string
 // - name: email
 //   description: Email of the company
-//   in: formData
+//   in: body
 //   required: false
 //   type: string
 //
@@ -188,17 +190,19 @@ func UpdateCompany(w http.ResponseWriter, r *http.Request) {
 //   type: string
 //
 // responses:
-//   202:
+//   204:
 //     description: Company deleted
 func DeleteCompany(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
 
 	db.Remove(name)
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(http.StatusNoContent)
 }
 
 func writeJsonResponse(w http.ResponseWriter, bytes []byte) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Write(bytes)
 }

@@ -67,21 +67,21 @@
             "type": "string",
             "description": "Name of the company",
             "name": "name",
-            "in": "formData",
+            "in": "body",
             "required": true
           },
           {
             "type": "string",
             "description": "Telephone of the company",
             "name": "tel",
-            "in": "formData",
+            "in": "body",
             "required": true
           },
           {
             "type": "string",
             "description": "Email of the company",
             "name": "email",
-            "in": "formData",
+            "in": "body",
             "required": true
           }
         ],
@@ -94,6 +94,7 @@
     },
     "/companies/{name}": {
       "get": {
+        "description": "Gets the details for a company.",
         "produces": [
           "application/json"
         ],
@@ -101,7 +102,7 @@
           "companies"
         ],
         "summary": "Get a company by name.",
-        "operationId": "getCompany",
+        "operationId": "getCompanyByName",
         "parameters": [
           {
             "type": "string",
@@ -143,13 +144,13 @@
             "type": "string",
             "description": "Telephone of the company",
             "name": "tel",
-            "in": "formData"
+            "in": "body"
           },
           {
             "type": "string",
             "description": "Email of the company",
             "name": "email",
-            "in": "formData"
+            "in": "body"
           }
         ],
         "responses": {
@@ -177,7 +178,7 @@
           }
         ],
         "responses": {
-          "202": {
+          "204": {
             "description": "Company deleted"
           }
         }
