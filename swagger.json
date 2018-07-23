@@ -1,0 +1,215 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "the purpose of this application is to provide an application\nthat is using plain go code to define an API\n\nThis should demonstrate all the possible comment annotations\nthat are available to turn go code into a fully compliant swagger 2.0 spec",
+    "title": "Company API.",
+    "termsOfService": "there are no TOS at this moment, use at your own risk we take no responsibility",
+    "contact": {
+      "name": "John Doe",
+      "url": "http://john.doe.com",
+      "email": "john.doe@example.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "paths": {
+    "/companies": {
+      "get": {
+        "description": "This will show all companies.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "companies"
+        ],
+        "summary": "Lists companies.",
+        "operationId": "getCompanies",
+        "responses": {
+          "200": {
+            "description": "An array of Companies",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Company"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "companies"
+        ],
+        "summary": "Creates a company.",
+        "operationId": "createCompany",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Name of the company",
+            "name": "name",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Telephone of the company",
+            "name": "tel",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Email of the company",
+            "name": "email",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Company created"
+          }
+        }
+      }
+    },
+    "/companies/{name}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "companies"
+        ],
+        "summary": "Get a company by name.",
+        "operationId": "getCompany",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A Company",
+            "schema": {
+              "$ref": "#/definitions/Company"
+            }
+          }
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "companies"
+        ],
+        "summary": "Updates a company.",
+        "operationId": "updateCompany",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Name of the company",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Telephone of the company",
+            "name": "tel",
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "description": "Email of the company",
+            "name": "email",
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company updated"
+          }
+        }
+      },
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "companies"
+        ],
+        "summary": "Deletes a company.",
+        "operationId": "deleteCompany",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Name of the company",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Company deleted"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Company": {
+      "type": "object",
+      "required": [
+        "name",
+        "tel",
+        "email"
+      ],
+      "properties": {
+        "email": {
+          "description": "The email of the company",
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "name": {
+          "description": "The name for this company",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "tel": {
+          "description": "The telephone number of the company",
+          "type": "string",
+          "x-go-name": "Tel"
+        }
+      },
+      "x-go-package": "github.com/kkamdooong/go-restful-api-example/model"
+    }
+  }
+}
